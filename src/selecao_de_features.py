@@ -12,7 +12,43 @@ from scipy.stats import chi2_contingency
 from boruta import BorutaPy
 
 
+import seaborn as sns
+import matplotlib.pyplot as plt
 
+cmap = sns.diverging_palette(0,100,74,39,19,25, center='light', as_cmap=True) #heatmap
+
+def plot_correlação(lista_de_variaveis, df):
+    plt.figure(figsize=(20,4))
+    corrmat = df.astype('int').loc[:,lista_de_variaveis].corr(method='pearson')
+    sns.heatmap([corrmat['target']], xticklabels = corrmat.index,
+                annot=True, fmt='.2f', annot_kws={'size': 14},
+                cbar=False, center=0,cmap=cmap)
+    plt.title('Correlação pelo método de Person')
+    plt.tight_layout()
+    plt.show()
+
+def point_biserial(df, y, num_columns = None, significancia=0.05):
+    '''
+    Perform feature selection based on correlation test.
+
+            Parameters:
+                    df (pandas.dataframe): A dataframe containing all features and target
+                    num_columns (list): A list containing all categorical features. If empty list, the function tries to infer the categorical columns itself
+                    y (string): A string indicating the target.
+
+            Returns:
+                    columns_remove_pb (list): 
+
+    '''
+    correlation = []
+    p_values = []
+    results = []
+    
+    
+    if num_columns:
+        num_columns = num_columns
+    else:
+        num_columns = df.select_dtypes(include=['int','float', 'int32', 'float64']).columns.tolist()
 def boruta_selector(df, y=None):
     Y = df[y]
     df = df.drop(y,axis=1)

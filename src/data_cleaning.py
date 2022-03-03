@@ -18,3 +18,9 @@ def remover_colunas_constantes(df):
             df.drop(i, axis = 1, inplace= True)
             const_cols.append(i)
     return df, const_cols
+
+
+def convete_lower(lista_variaveis_categoricas, df):
+    for var_cat in lista_variaveis_categoricas:
+        df[var_cat]=df[var_cat].str.lower()
+    return df

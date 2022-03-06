@@ -8,6 +8,7 @@ from sklearn.preprocessing import OrdinalEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import VarianceThreshold
+from scipy.stats import pointbiserialr
 from scipy.stats import chi2_contingency
 from boruta import BorutaPy
 
@@ -17,7 +18,7 @@ import matplotlib.pyplot as plt
 
 cmap = sns.diverging_palette(0,100,74,39,19,25, center='light', as_cmap=True) #heatmap
 
-def plot_correlação(lista_de_variaveis, df):
+def plot_correlacao(lista_de_variaveis, df):
     plt.figure(figsize=(20,4))
     corrmat = df.astype('int').loc[:,lista_de_variaveis].corr(method='pearson')
     sns.heatmap([corrmat['target']], xticklabels = corrmat.index,
@@ -49,6 +50,27 @@ def point_biserial(df, y, num_columns = None, significancia=0.05):
         num_columns = num_columns
     else:
         num_columns = df.select_dtypes(include=['int','float', 'int32', 'float64']).columns.tolist()
+    
+    
+    for col in num_columns:
+        df[col] = df[col].fillna(df[col].median())
+        correlation_aux, p_value_aux = pointbiserialr(df[col], df[y])
+        correlation.append(correlation_aux)
+        p_values.append(p_value_aux)
+    
+    
+        if p_value_aux <= significancia:
+            results.append('Reject H0')
+        else:
+            results.append('Accept H0')
+    
+    
+    pb_df = pd.DataFrame({'column':num_columns, 'correlation':correlation, 'p_value':p_values, 'result':results})
+    columns_remove_pb =  pb_df.loc[pb_df['result']=='Accept H0']['column'].values.tolist()
+  
+    
+    return pb_df, columns_remove_pb
+        
 def boruta_selector(df, y=None):
     Y = df[y]
     df = df.drop(y,axis=1)

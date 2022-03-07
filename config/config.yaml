@@ -1,0 +1,6 @@
+defaults:
+  - paths: paths
+  - model: model
+  - datasets: datasets
+  - mlflow: mlflow
+  - app: app_config

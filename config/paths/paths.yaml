@@ -1,0 +1,3 @@
+raw: ${hydra:runtime.cwd}/../data/raw
+output: ${hydra:runtime.cwd}/../data/output
+inter: ${hydra:runtime.cwd}/../data/inter

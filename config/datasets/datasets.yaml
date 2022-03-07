@@ -1,0 +1,5 @@
+raw_input_data: diabetes_data.csv
+train_data: diabetes_train.parquet
+test_data: diabetes_test.parquet
+predict_data: diabetes_test.parquet
+output_data: predictions.csv

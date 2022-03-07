@@ -1,0 +1,26 @@
+paths:
+  input: ${hydra:runtime.cwd}/../data/input
+  output: ${hydra:runtime.cwd}/../data/output
+model:
+  name: lr_diabetes
+  random_state: 123
+  params:
+    C: 100
+datasets:
+  train_data: iris_train.csv
+  test_data: iris_test.csv
+  predict_data: iris_test.csv
+  output_data: predictions.csv
+mlflow:
+  tracking_uri: http://localhost:5000/
+  artifact_path: models
+  images_path: images
+  description: example of model
+  step: training
+  register_model: true
+  stage: Production
+app:
+  host: 0.0.0.0
+  port: 8000
+  debug: true
+  endpoint: http://localhost:${app.port}/predict

@@ -1,0 +1,18 @@
+artifact_path: models
+flavors:
+  python_function:
+    env: conda.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    python_version: 3.8.10
+  sklearn:
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.0.2
+run_id: 7df4a149e9ec421889f2e6b0aac43b6f
+signature:
+  inputs: '[{"name": "sepal.length", "type": "double"}, {"name": "sepal.width", "type":
+    "double"}, {"name": "petal.length", "type": "double"}, {"name": "petal.width",
+    "type": "double"}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "object", "shape": [-1]}}]'
+utc_time_created: '2022-03-05 23:48:21.351251'

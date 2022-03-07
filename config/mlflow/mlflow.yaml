@@ -1,0 +1,7 @@
+tracking_uri: http://localhost:5000/
+artifact_path: model
+images_path: images
+description: Model to diagnose diabetes
+step: training
+register_model: True
+stage: 'Production'

@@ -1,57 +1,77 @@
-project_name
+diabetes_app
 ==============================
 
-A short description of the project.
+Time2Delivery is a Flask App that gets information about orders and predict the time the order will take to complete. It was made as a business case for the technical phase of the selection process of Cornershop.
 
 Project Organization
 ------------
-
     ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+    ├── README.md
+    ├── app.py -> Aplicativo Flask com o modelo.
+    ├── config
+    │   └── config_model.yaml
+    |   └── app
+    |       └── app_config.yaml
+    |   └──  datasets
+    |        └── datasets.yaml
+    |   └── mlflow
+    |        └── mlflow.yaml
+    |   └── model
+    |        └── model.yaml
+    |   └── paths
+    |        └── paths.model
+    ├── data -> Pasta com todos os dados.
+    │   ├── inter -> Pasta com os arquivos intermediários.
+    │       └── diabetes_test.parquet -> Dados de teste.
+    |       └── diabetes_train.parquet -> Dados de treino.
+    |       └── diabetes_train_selected.parquet -> Dados com as variáveis selecionadas. 
+    |
+    │   ├── Ouput - > Pasta com as previsões do modelo. 
+    │   │   └── predictions.csv -> Previsões do modelo
+    │   └── raw -> Pasta com todos os arquivos fornecidos.
+    │       └── diabetes_data.csv   
+    ├── notebooks -> Pasta com os notebooks de desenvolvimento.
+    │   ├── 1_data_cleaning.ipynb -> Limpeza dos dados
+    │   ├── 2_eda.ipynb -> Análise exploratória
+    |   ├── 3_selecao_de_features.ipynb - > Selecão de features
+    │   └── 4_modelagem.ipynb ->  Modelagem
+    ├── outputs -> Saída do modelo
+    ├── src -> Dependências
+    |    └── outputs
+    |    └── predict.py -> Previsões
+    |    └── train_model.py -> Modelo treinado
+    ├── requirements.txt -> Requisitos para o projeto.
+    ├── setup.py 
+    └── utils -> Módulo com todas as funções e classes criadas para o projeto
+        ├── _init_.py
+        ├── data_cleaning.py
+        └── eda.py
+        ├── modelagem.py
+        └── selecao_de_features.py
+------------
 
+1) Criar ambiente
+    - Criar virtualenv
+    - Ativar virtualenv
+      git clone <https://github.com/grazimelo/case-sbf.git>
+      cd case_sbf
+      pip install -r requirements.txt
+------------
+2) Instanciar mlflow
+    mlflow server --backend-store-uri sqlite:///mlruns.db --default-artifact-root file://$PWD/mlruns
+------------
+3) Treino/Retreino
+    Copiar novo arquivo (em formato parquet) com nome diabetes_train.parquet para a pasta data/inter (o formato deve ser equivalente ao formato do arquivo atual)
+    cd src
+    python train_model.py
+------------
+4) Prever novos dados
+    Para prever basta copiar um arquivo com o nome diabetes_test.parquet para a pasta data/inter
 
---------
+    python app.py (sobe o app flask)
+    cd src
+    python predict.py
 
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+    O arquivo com as previsões irão para a pasta data/output
+ 
+------------

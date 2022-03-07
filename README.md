@@ -1,8 +1,6 @@
 diabetes_app
 ==============================
-
-Time2Delivery is a Flask App that gets information about orders and predict the time the order will take to complete. It was made as a business case for the technical phase of the selection process of Cornershop.
-
+Este conjunto de dados contém os dados de sinais e sintomas de recém-diabéticos ou pacientes diabéticos.
 Project Organization
 ------------
     ├── LICENSE
@@ -67,11 +65,9 @@ Project Organization
 ------------
 4) Prever novos dados
     Para prever basta copiar um arquivo com o nome diabetes_test.parquet para a pasta data/inter
-
     python app.py (sobe o app flask)
     cd src
     python predict.py
 
     O arquivo com as previsões irão para a pasta data/output
- 
 ------------

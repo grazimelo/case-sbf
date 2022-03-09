@@ -50,7 +50,7 @@ Este conjunto de dados contém os dados de sinais e sintomas de recém-diabétic
 1) Criar ambiente
     - Criar virtualenv
     - Ativar virtualenv
-      git clone https://github.com/grazimelo/previsao-diabetes
+      git clone https://github.com/grazimelo/previsao-diabetes.git
       cd case_sbf
       pip install -r requirements.txt
 ------------

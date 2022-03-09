@@ -1,7 +1,6 @@
 diabetes_app
 ==============================
 Este conjunto de dados contém os dados de sinais e sintomas de recém-diabéticos ou pacientes diabéticos.
-Project Organization
 ------------
     ├── LICENSE
     ├── README.md
